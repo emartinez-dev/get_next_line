@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:58:01 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/08 18:04:51 by franmart         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:58:57 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ unsigned int	ft_strlen(const char *s)
 	unsigned int	i;
 
 	i = 0;
-	while (s[i] != '\0')
-	{
+	while (s[i])
 		i++;
-	}
 	return (i);
 }
 
@@ -30,27 +28,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	unsigned int	j;
 	char			*str;
 
-	if (!s1)
-	{
-		s1 = malloc(1 * sizeof(char));
-		s1[0] = '\0';
-	}
-	if (!s1 || !s2)
-		return (0);
 	i = 0;
 	j = 0;
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
+	if (!s1 || !s2 || !str)
 		return (0);
-	while (i < ft_strlen(s1) + 1)
+	while (s1[i] != '\0')
 	{
 		str[i] = s1[i];
 		i++;
 	}
 	while (s2[j] != '\0')
-		str[i++] = s2[j++];
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
 	str[i] = '\0';
-	free(s1);
 	return (str);
 }
 
@@ -74,56 +68,31 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_get_line(char *s1)
+void	ft_bzero(void *s, unsigned int n)
 {
-	int		i;
-	char	*str;
+	unsigned int	i;
 
 	i = 0;
-	if (!s1)
-		return (0);
-	while (s1[i] && s1[i] != '\n')
-		i++;
-	str = malloc(sizeof(char) * (i + 2));
-	if (!str)
-		return (0);
-	i = 0;
-	while (s1[i] && s1[i] != '\n')
+	while (i < n)
 	{
-		str[i] = s1[i];
+		*(char *)(s + i) = '\0';
 		i++;
 	}
-	if (s1[i] == '\n')
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
 }
 
-char	*ft_new_buffer(char *s1)
+void	*ft_calloc(unsigned int nmemb, unsigned int size)
 {
-	int		i;
-	int		j;
-	char	*str;
+	void			*ptr;
+	unsigned int	total_size;
 
-	i = 0;
-	j = 0;
-	while (s1[i] && s1[i] != '\n')
-		i++;
-	if (!s1[i])
-	{
-		free(s1);
+	total_size = nmemb * size;
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if (nmemb * size > INT_MAX)
 		return (0);
-	}
-	str = malloc(ft_strlen(s1) - i + 1);
-	if (!str)
+	ptr = malloc(total_size);
+	if (!ptr)
 		return (0);
-	i++;
-	while (s1[i])
-		str[j++] = s1[i++];
-	str[j] = '\0';
-	free(s1);
-	return (str);
+	ft_bzero(ptr, total_size);
+	return (ptr);
 }
