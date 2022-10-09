@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:35:51 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/09 19:11:44 by franmart         ###   ########.fr       */
+/*   Updated: 2022/10/09 19:26:40 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,33 @@ char	*ft_join_and_free(char *buffer, char *tmp_buff)
 	return (temp);
 }
 
-char	*ft_get_line(char *s1)
+char	*ft_get_line(char *buffer)
 {
 	int		i;
-	char	*str;
+	char	*line;
 
 	i = 0;
-	if (!s1[i])
+	if (!buffer[i])
 		return (0);
-	while (s1[i] && s1[i] != '\n')
+	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	str = ft_calloc(i + 2, sizeof(char));
+	line = ft_calloc(i + 2, sizeof(char));
 	i = 0;
-	while (s1[i] && s1[i] != '\n')
+	while (buffer[i] && buffer[i] != '\n')
 	{
-		str[i] = s1[i];
+		line[i] = buffer[i];
 		i++;
 	}
-	if (s1[i])
+	if (buffer[i])
 	{
-		str[i] = '\n';
+		line[i] = '\n';
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	line[i] = '\0';
+	return (line);
 }
 
-char	*ft_read(int fd, char *buffer)
+char	*ft_read_file(int fd, char *buffer)
 {
 	char	*tmp_buff;
 	int		read_size;
@@ -76,30 +76,30 @@ char	*ft_read(int fd, char *buffer)
 	return (buffer);
 }
 
-char	*ft_new_buffer(char *s1)
+char	*ft_new_buffer(char *buffer)
 {
 	int		i;
 	int		j;
-	char	*str;
+	char	*n_buffer;
 
 	i = 0;
 	j = 0;
-	while (s1[i] && s1[i] != '\n')
+	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	if (!s1[i])
+	if (!buffer[i])
 	{
-		free(s1);
+		free(buffer);
 		return (0);
 	}
-	str = ft_calloc(ft_strlen(s1) - i + 1, sizeof(char));
-	if (!str)
+	n_buffer = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
+	if (!n_buffer)
 		return (0);
 	i++;
-	while (s1[i])
-		str[j++] = s1[i++];
-	str[j] = '\0';
-	free(s1);
-	return (str);
+	while (buffer[i])
+		n_buffer[j++] = buffer[i++];
+	n_buffer[j] = '\0';
+	free(buffer);
+	return (n_buffer);
 }
 
 char	*get_next_line(int fd)
@@ -109,7 +109,7 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
 		return (0);
-	buffer = ft_read(fd, buffer);
+	buffer = ft_read_file(fd, buffer);
 	if (!buffer)
 		return (0);
 	str = ft_get_line(buffer);
