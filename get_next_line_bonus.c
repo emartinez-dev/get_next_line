@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:08:58 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/10 16:36:06 by franmart         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:00:37 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ft_read_file(int fd, char *buffer)
 		if (read_size == -1)
 		{
 			free(tmp_buff);
+			free(buffer);
 			return (0);
 		}
 		tmp_buff[read_size] = '\0';
@@ -104,10 +105,10 @@ char	*ft_new_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer[1024];
+	static char		*buffer[4096];
 	char			*str;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (0);
 	buffer[fd] = ft_read_file(fd, buffer[fd]);
 	if (!buffer[fd])

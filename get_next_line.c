@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:35:51 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/09 19:26:40 by franmart         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:59:00 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ft_read_file(int fd, char *buffer)
 		if (read_size == -1)
 		{
 			free(tmp_buff);
+			free(buffer);
 			return (0);
 		}
 		tmp_buff[read_size] = '\0';
@@ -107,7 +108,7 @@ char	*get_next_line(int fd)
 	static char		*buffer;
 	char			*str;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (0);
 	buffer = ft_read_file(fd, buffer);
 	if (!buffer)
