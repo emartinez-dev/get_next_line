@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:35:51 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/20 19:59:00 by franmart         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:42:33 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_read_file(int fd, char *buffer)
 		buffer = ft_calloc(1, 1);
 	tmp_buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	read_size = 1;
-	while (read_size > 0)
+	while (read_size > 0 && !(ft_strchr(buffer, '\n')))
 	{
 		read_size = read(fd, tmp_buff, BUFFER_SIZE);
 		if (read_size == -1)
@@ -67,11 +67,6 @@ char	*ft_read_file(int fd, char *buffer)
 		}
 		tmp_buff[read_size] = '\0';
 		buffer = ft_join_and_free(buffer, tmp_buff);
-		if (ft_strchr(buffer, '\n'))
-		{
-			free(tmp_buff);
-			return (buffer);
-		}
 	}
 	free(tmp_buff);
 	return (buffer);
