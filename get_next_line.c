@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:35:51 by franmart          #+#    #+#             */
-/*   Updated: 2022/11/05 14:56:07 by franmart         ###   ########.fr       */
+/*   Updated: 2022/12/10 18:01:54 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	*ft_new_buffer(char *buffer)
  * @param fd file opened
  * @return char* 
  */
-char	*get_next_line(int fd)
+char	*ft_gnl(int fd)
 {
 	static char		*buffer;
 	char			*str;

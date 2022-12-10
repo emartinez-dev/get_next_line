@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:09:11 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/29 23:32:44 by franmart         ###   ########.fr       */
+/*   Updated: 2022/12/10 18:01:54 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdlib.h>
 # include <limits.h>
 
-char			*get_next_line(int fd);
+char			*ft_gnl(int fd);
 unsigned int	ft_strlen(const char *s);
 char			*ft_strjoin(char *s1, char *s2);
 int				ft_strchr(const char *s, int c);
