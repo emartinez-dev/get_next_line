@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:08:58 by franmart          #+#    #+#             */
-/*   Updated: 2022/10/20 20:43:13 by franmart         ###   ########.fr       */
+/*   Updated: 2022/12/10 18:22:29 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_new_buffer(char *buffer)
 	return (n_buffer);
 }
 
-char	*get_next_line(int fd)
+char	*ft_gnl(int fd)
 {
 	static char		*buffer[4096];
 	char			*str;

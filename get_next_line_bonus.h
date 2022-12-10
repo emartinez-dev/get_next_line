@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:09:11 by franmart          #+#    #+#             */
-/*   Updated: 2022/12/10 18:06:19 by franmart         ###   ########.fr       */
+/*   Updated: 2022/12/10 18:22:20 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include "../../include/libft.h"
 
 char			*ft_gnl(int fd);
 
