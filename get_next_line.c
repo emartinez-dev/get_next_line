@@ -5,20 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 15:35:51 by franmart          #+#    #+#             */
-/*   Updated: 2022/12/10 18:01:54 by franmart         ###   ########.fr       */
+/*   Created: 2022/10/10 16:08:58 by franmart          #+#    #+#             */
+/*   Updated: 2022/12/11 12:27:52 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/**
- * @brief Concats the old buffer to the new read buffer and frees the old one.
- * 
- * @param buffer old buffer
- * @param tmp_buff new buffer
- * @return char* joined old and new buffer
- */
 char	*ft_join_and_free(char *buffer, char *tmp_buff)
 {
 	char	*temp;
@@ -28,12 +21,6 @@ char	*ft_join_and_free(char *buffer, char *tmp_buff)
 	return (temp);
 }
 
-/**
- * @brief Travels the buffer and if there is any newline char, returns it.
- * 
- * @param buffer acummulated read string
- * @return char* of the line 
- */
 char	*ft_get_line(char *buffer)
 {
 	int		i;
@@ -60,15 +47,6 @@ char	*ft_get_line(char *buffer)
 	return (line);
 }
 
-/**
- * @brief Reads BUFFER_SIZE bytes from the given file descriptor and adds it to
- * 			the buffer variable until it finds a newline char or the string ends
- * 
- * @param fd file descriptor of the given text file
- * @param buffer address passed by the main function. If buffer is empty, 
- * 					ft_read_file allocates memory for an empty string.
- * @return char* acummulated string of chars read
- */
 char	*ft_read_file(int fd, char *buffer)
 {
 	char	*tmp_buff;
@@ -94,13 +72,6 @@ char	*ft_read_file(int fd, char *buffer)
 	return (buffer);
 }
 
-/**
- * @brief Updates the old buffer removing the string that ft_get_line returned.
- * 			The new buffer can be an empty string
- * 
- * @param buffer old buffer
- * @return char* new buffer 
- */
 char	*ft_new_buffer(char *buffer)
 {
 	int		i;
@@ -127,41 +98,20 @@ char	*ft_new_buffer(char *buffer)
 	return (n_buffer);
 }
 
-/**
- * @brief Returns the next line of a given file descriptor
- * 
- * @param fd file opened
- * @return char* 
- */
 char	*ft_gnl(int fd)
 {
-	static char		*buffer;
+	static char		*buffer[4096];
 	char			*str;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (0);
-	buffer = ft_read_file(fd, buffer);
-	if (!buffer)
+	buffer[fd] = ft_read_file(fd, buffer[fd]);
+	if (!buffer[fd])
+	{
+		free(buffer[fd]);
 		return (0);
-	str = ft_get_line(buffer);
-	buffer = ft_new_buffer(buffer);
+	}
+	str = ft_get_line(buffer[fd]);
+	buffer[fd] = ft_new_buffer(buffer[fd]);
 	return (str);
 }
-
-/*
-int	main(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("test.txt", O_RDONLY);
-	line = get_next_line(fd);
-	while (line != 0)
-	{
-		printf("%s", line);
-		line = get_next_line(fd);
-	}	
-	fd = close(fd);
-	return (0);
-}
-*/
